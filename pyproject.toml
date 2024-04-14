@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "teleg"
+version = "0.1.0"
+description = ""
+authors = ["Egor <egorkononec64@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+aiogram = "^3.4.1"
+requests = "^2.31.0"
+peewee = "^3.17.1"
+beautifulsoup4 = "^4.12.3"
+lxml = "^4.2.5"
+
+
+[tool.poetry.scripts]
+dev = "main:start_dev"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
