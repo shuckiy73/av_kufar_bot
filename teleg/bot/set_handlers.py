@@ -17,7 +17,7 @@ from teleg.parser.pars_data import first_pars
 @dp.message(CommandStart())
 async def start_cmd(message: Message):
     await set_commands()
-    await message.answer('Доброго времени суток', reply_markup=start_kb())
+    await message.answer(f'{hbold("Доброго времени суток")}', reply_markup=start_kb())
     await message.answer('✋')
     await message.answer('Нажмите на кнопку: "Добавить ссылку.", чтобы получать свежие уведомления по вашей ссылке')
 
@@ -53,7 +53,7 @@ async def get_all_links(message: Message, state: FSMContext):
     )
     for item in all_links:
         await message.answer(
-            text=f'`{hbold(item[0])}`\n{item[1]}',
+            text=f'`{item[0]}`\n{item[1]}',
             parse_mode=ParseMode.MARKDOWN_V2,
             disable_web_page_preview=True
         )
@@ -62,9 +62,9 @@ async def get_all_links(message: Message, state: FSMContext):
 @router.message(Command(commands=['help']))
 async def delete_link(message: Message, state: FSMContext):
     await message.answer(
-        text=f'Команда /start - запустит бота.\n'
-             f'Команда /all_links - выведет список сохранённых ссылок.\n'
-             f'Команда /delete - удалит выбранную вами ссылку.\n'
-             f'Чтобы установить ссылку, нажмите на кнопку - "Добавить ссылку."\n',
+        text=f'Команда /start - {hbold("запустит бота.")}\n'
+             f'Команда /all_links - {hbold("выведет список сохранённых ссылок.")}\n'
+             f'Команда /delete - {hbold("удалит выбранную вами ссылку.")}\n'
+             f'''Чтобы установить ссылку, нажмите на кнопку - "{hbold('Добавить ссылку.')}"\n''',
         reply_markup=start_kb()
     )
