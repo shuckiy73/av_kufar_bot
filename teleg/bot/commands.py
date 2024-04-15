@@ -9,6 +9,10 @@ async def set_commands(bot: Bot = bot_):
             description="Запустить бота."
         ),
         BotCommand(
+            command="help",
+            description="Как использовать бота?"
+        ),
+        BotCommand(
             command="all_links",
             description="Список установленных ссылок."
         ),

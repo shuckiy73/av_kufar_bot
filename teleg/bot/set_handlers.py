@@ -2,6 +2,8 @@ from aiogram.filters import CommandStart, Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
 from aiogram import F
+from aiogram.enums import ParseMode
+from aiogram.utils.markdown import hbold
 
 from .core import router, dp
 from .commands import set_commands
@@ -30,7 +32,9 @@ async def add_link(message: Message, state: FSMContext):
 @router.message(Command(commands=['delete']))
 async def delete_link(message: Message, state: FSMContext):
     await message.answer(
-        text='Пришлите мне уникальный ID сылки, которую хотите удалить.',
+        text=f'Пришлите мне {hbold("уникальный ID")} сылки, которую хотите удалить.\n'
+             f'Просто нажмите на {hbold("уникальный ID")} и он автоматически скопируется, '
+             f'вам останется просто отправить его в бот.',
         reply_markup=cancel_kb()
     )
     await state.set_state(DeleteLink.del_id)
@@ -38,8 +42,29 @@ async def delete_link(message: Message, state: FSMContext):
 
 @router.message(Command(commands=['all_links']))
 async def get_all_links(message: Message, state: FSMContext):
+    all_links = get_links(message.chat.id)
+    send_text = 'Вот все ваши ссылки в формате : \n\nуникальный ID\nваша ссылка'
+    if len(all_links) == 0:
+        send_text = 'У вас нет сохранённых ссылок(\nЧтобы добавить ссылку, нажмите на кнопку - "Добавить ссылку."'
+
     await message.answer(
-        text='Вот все ваши ссылки в формате : уникальный ID, ваша ссылка',
+        text=send_text,
+        reply_markup=start_kb(),
+    )
+    for item in all_links:
+        await message.answer(
+            text=f'`{hbold(item[0])}`\n{item[1]}',
+            parse_mode=ParseMode.MARKDOWN_V2,
+            disable_web_page_preview=True
+        )
+
+
+@router.message(Command(commands=['help']))
+async def delete_link(message: Message, state: FSMContext):
+    await message.answer(
+        text=f'Команда /start - запустит бота.\n'
+             f'Команда /all_links - выведет список сохранённых ссылок.\n'
+             f'Команда /delete - удалит выбранную вами ссылку.\n'
+             f'Чтобы установить ссылку, нажмите на кнопку - "Добавить ссылку."\n',
         reply_markup=start_kb()
     )
-    print(get_links(message.chat.id))

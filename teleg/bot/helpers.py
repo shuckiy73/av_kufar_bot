@@ -1,4 +1,5 @@
 import random
+import re
 import string
 from uuid import uuid4
 
@@ -36,9 +37,13 @@ def delete_link(user_id, unique_id):
     return True
 
 
+def add_backslash_before_dots(text):
+    first_text = re.sub(r"\.", r"\\.", text)
+    return re.sub(r"-", r"\\.", first_text)
+
 def get_links(user_id):
     select_ = Users.select().where(Users.user_id == user_id)
     mass = []
     for item in select_:
-        mass.append([item.unique_id, item.pars_link])
+        mass.append([item.unique_id, add_backslash_before_dots(text=item.pars_link)])
     return mass
