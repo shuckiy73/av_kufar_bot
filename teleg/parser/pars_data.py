@@ -43,7 +43,7 @@ async def get_result_parser(url, user_id):
     name, cre, crca, rgd, crg = '', '', '', '', ''
     for ad in ads:
         __id = ad['ad_id']
-        _select = ParsInfo.select().where(ParsInfo.ad_id == __id)
+        _select = ParsInfo.select().where(ParsInfo.ad_id == __id, ParsInfo.user_id == user_id)
         if _select.exists():
             continue
 
