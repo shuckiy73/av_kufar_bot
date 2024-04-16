@@ -36,7 +36,9 @@ class ParsInfo(BaseModel):
     link_photo = TextField(default='', null=True)
     link = TextField(default='', null=True)
     time_publish = DateTimeField(null=True)
-    price_car = TextField(default='Договорная', null=True)
+    price_car = TextField(default='Договорная.', null=True)
+    city = TextField(default='Неуказан.', null=True)
+    car_name = TextField(default='', null=True)
     cre = TextField(default='', null=True)
     crca = TextField(default='', null=True)
     rgd = TextField(default='', null=True)
@@ -44,9 +46,11 @@ class ParsInfo(BaseModel):
 
     def __repr__(self):
         return \
+            f'''{f'{hitalic("Марка/Модель")}: {hbold(self.car_name)}.'}\n''' \
             f'''{f'{hitalic("Продавец")}: {hbold(self.seller)}.' if self.seller else 'Имя не указано.'}\n''' \
             f"{hitalic('Дата публикации объявления')}: \n" \
             f"{hbold(self.time_publish)}.\n" \
+            f'''{f'{hitalic("Область/Город")}: {hbold(self.city)}.'}\n''' \
             f'''{hitalic(f"Стоимость авто:")} {hbold(self.price_car+' USD')}.\n''' \
             f'{hitalic("Другая информация: ")}' \
             f'{hbold(self.cre)}, {hbold(self.crca)}, {hbold(self.rgd)}, {hbold(self.crg)}.'

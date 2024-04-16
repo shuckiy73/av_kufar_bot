@@ -41,7 +41,6 @@ async def get_result_parser(url, user_id):
 
     result_mass = []
     name, cre, crca, rgd, crg = '', '', '', '', ''
-
     for ad in ads:
         __id = ad['ad_id']
         _select = ParsInfo.select().where(ParsInfo.ad_id == __id)
@@ -51,6 +50,10 @@ async def get_result_parser(url, user_id):
         time_publish = datetime.datetime.strptime(ad['list_time'][:-1], pattern)
         link_photo = []
         link = ad['ad_link']
+
+        city_ = ''
+        name_ = ''
+
         price = 'Договорная' if int(ad['price_usd']) == 0 else ad['price_usd'][:-2]
 
         for ac_param in ad['account_parameters']:
@@ -72,6 +75,14 @@ async def get_result_parser(url, user_id):
                 crca = item['vl']
             elif item['p'] == 'cars_gearbox':
                 crg = item['vl']
+            elif item['pl'] == 'Марка':
+                name_ += item['vl']
+            elif item['pl'] == 'Модель':
+                name_ += f" / {item['vl']}"
+            elif item['pl'] == 'Область':
+                city_ += {item['vl']}
+            elif item['pl'] == 'Город / Район':
+                city_ += f" / {item['vl']}"
 
         for img in ad['images']:
             link_photo.append(f'https://rms.kufar.by/v1/gallery/{img["path"]}')
@@ -90,6 +101,8 @@ async def get_result_parser(url, user_id):
                               link=link,
                               time_publish=time_publish,
                               price_car=price,
+                              car_name=name_,
+                              city=city_,
                               cre=cre,
                               crca=crca,
                               rgd=rgd,

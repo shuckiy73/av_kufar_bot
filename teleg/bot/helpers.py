@@ -39,7 +39,9 @@ def delete_link(user_id, unique_id):
 
 def add_backslash_before_dots(text):
     first_text = re.sub(r"\.", r"\\.", text)
-    return re.sub(r"-", r"\\.", first_text)
+    second_text = re.sub(r"-", r"\\-", first_text)
+    third_text = re.sub(r"=", r"\\=", second_text)
+    return third_text
 
 def get_links(user_id):
     select_ = Users.select().where(Users.user_id == user_id)
