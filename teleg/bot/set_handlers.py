@@ -25,7 +25,9 @@ async def start_cmd(message: Message):
 @router.message(F.text == "Добавить ссылку.")
 async def add_link(message: Message, state: FSMContext):
     await message.answer('Пришлите мне ссылку, по которой вы хотите узнавать самые свежие объявления авто.\n'
-                         '(ссылка должна начинаться с "https://auto.kufar.by")')
+                         '(ссылка должна начинаться с "https://auto.kufar.by")',
+                         reply_markup=cancel_kb()
+                         )
     await state.set_state(AddState.add_id)
 
 
