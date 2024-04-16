@@ -80,7 +80,7 @@ async def get_result_parser(url, user_id):
             elif item['pl'] == 'Модель':
                 name_ += f" / {item['vl']}"
             elif item['pl'] == 'Область':
-                city_ += {item['vl']}
+                city_ += item['vl']
             elif item['pl'] == 'Город / Район':
                 city_ += f" / {item['vl']}"
 
