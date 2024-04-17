@@ -20,9 +20,9 @@ print(path)
 
 def send_text(string: str) -> str:
     arr = string.split()
-    if len(arr) <= 60:
+    if len(arr) <= 75:
         return string
-    return f"{' '.join(arr[:55])} ...(остальное на сайте)"
+    return f"{' '.join(arr[:80])} ...(остальное на сайте)"
 
 
 class BaseModel(Model):
