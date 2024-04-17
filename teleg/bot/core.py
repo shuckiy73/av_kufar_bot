@@ -17,4 +17,5 @@ bot_ = Bot(
 storage = MemoryStorage()
 dp = Dispatcher(storage=storage)
 router = Router()
-dp.include_router(router=router)
+router_admin = Router()
+dp.include_routers(router, router_admin)

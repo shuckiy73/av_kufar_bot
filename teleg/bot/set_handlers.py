@@ -17,7 +17,7 @@ from teleg.parser.pars_data import first_pars
 @dp.message(CommandStart())
 async def start_cmd(message: Message):
     await set_commands()
-    await message.answer(f'{hbold("Доброго времени суток")}', reply_markup=start_kb())
+    await message.answer(f'{hbold("Доброго времени суток")}', reply_markup=start_kb(message.from_user.id))
     await message.answer('✋')
     await message.answer('Нажмите на кнопку: "Добавить ссылку.", чтобы получать свежие уведомления по вашей ссылке')
 
@@ -51,7 +51,7 @@ async def get_all_links(message: Message, state: FSMContext):
 
     await message.answer(
         text=send_text,
-        reply_markup=start_kb(),
+        reply_markup=start_kb(message.from_user.id),
     )
     for item in all_links:
         await message.answer(
@@ -68,5 +68,5 @@ async def delete_link(message: Message, state: FSMContext):
              f'Команда /all_links - {hbold("выведет список сохранённых ссылок.")}\n'
              f'Команда /delete - {hbold("удалит выбранную вами ссылку.")}\n'
              f'''Чтобы установить ссылку, нажмите на кнопку - "{hbold('Добавить ссылку.')}"\n''',
-        reply_markup=start_kb()
+        reply_markup=start_kb(message.from_user.id)
     )

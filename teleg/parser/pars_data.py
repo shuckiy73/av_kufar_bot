@@ -13,7 +13,6 @@ from teleg.bot.keyboard import get_flag_ikb
 
 
 async def first_pars(url, user_id) -> None:
-    from pprint import pprint
     async with aiohttp.ClientSession(headers=headers) as session:
         async with session.get(url) as response:
             soup = BeautifulSoup(await response.text(encoding='utf-8'), 'lxml')

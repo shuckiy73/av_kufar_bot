@@ -21,7 +21,7 @@ class AddState(StatesGroup):
 async def exit_the_state(message: Message, state: FSMContext):
     await message.answer(
         text='Вы вурнулись в главное меню.',
-        reply_markup=start_kb()
+        reply_markup=start_kb(message.from_user.id)
     )
     await state.clear()
 
@@ -36,7 +36,7 @@ async def add_link_(message: Message, state: FSMContext):
 
     await message.answer(
         text='Ваша ссылка успешно установлена!',
-        reply_markup=start_kb()
+        reply_markup=start_kb(message.from_user.id)
     )
 
     await state.clear()
@@ -47,6 +47,6 @@ async def delete_link_(message: Message, state: FSMContext):
     delete_link(user_id=message.from_user.id, unique_id=message.text)
     await message.answer(
         text='Ваша ссылка была успешно удалена!',
-        reply_markup=start_kb()
+        reply_markup=start_kb(message.from_user.id)
     )
     await state.clear()

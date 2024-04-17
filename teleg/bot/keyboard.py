@@ -2,10 +2,11 @@ from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMar
 from teleg.database import ParsInfo
 
 
-def start_kb():
+def start_kb(user_id):
     return ReplyKeyboardMarkup(
         keyboard=[
-            [KeyboardButton(text="Добавить ссылку.")]
+            [KeyboardButton(text="Добавить ссылку.")],
+            [KeyboardButton(text="Добавить юзера👨‍👩‍👦‍👦")]
         ],
         resize_keyboard=True,
         one_time_keyboard=True
