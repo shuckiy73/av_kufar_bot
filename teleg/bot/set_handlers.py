@@ -11,8 +11,6 @@ from .states import DeleteLink, AddState
 from .keyboard import cancel_kb, start_kb
 from .helpers import get_links
 
-from teleg.parser.pars_data import first_pars
-
 
 @dp.message(CommandStart())
 async def start_cmd(message: Message):

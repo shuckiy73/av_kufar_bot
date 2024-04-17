@@ -21,5 +21,5 @@ async def add_link(message: Message):
 async def add_link(message: Message):
     if message.from_user.id == ADMIN_ID:
         user_id, url = message.text.split()
-        await first_pars(url, user_id)
+        await first_pars(url, user_id, admin=True)
         await message.answer('added')

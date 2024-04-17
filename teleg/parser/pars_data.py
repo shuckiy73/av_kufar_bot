@@ -10,12 +10,16 @@ from .helpers_pars import create_first_data, headers
 from teleg.database import ParsInfo, Users
 from teleg.bot.core import bot_
 from teleg.bot.keyboard import get_flag_ikb
+from teleg.bot.helpers import get_user
 
 
-async def first_pars(url, user_id) -> None:
+async def first_pars(url, user_id, admin=False) -> None:
     async with aiohttp.ClientSession(headers=headers) as session:
         async with session.get(url) as response:
             soup = BeautifulSoup(await response.text(encoding='utf-8'), 'lxml')
+
+    if admin:
+        get_user(id_user=user_id, link=url)
     mass = []
 
     parsed = soup.find('script', id='__NEXT_DATA__')
