@@ -13,6 +13,7 @@ from teleg.bot.keyboard import get_flag_ikb
 
 
 async def first_pars(url, user_id) -> None:
+    from pprint import pprint
     async with aiohttp.ClientSession(headers=headers) as session:
         async with session.get(url) as response:
             soup = BeautifulSoup(await response.text(encoding='utf-8'), 'lxml')
@@ -26,6 +27,14 @@ async def first_pars(url, user_id) -> None:
         mass.append(item['ad_id'])
 
     create_first_data(user_id, mass)
+
+
+async def get_descr_ad(url):
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as response:
+            soup = BeautifulSoup(await response.text(encoding='utf-8'), 'lxml')
+
+    return soup.select_one('div.styles_description_content__raCHR').text
 
 
 async def get_result_parser(url, user_id):
@@ -50,6 +59,7 @@ async def get_result_parser(url, user_id):
         time_publish = datetime.datetime.strptime(ad['list_time'][:-1], pattern)
         link_photo = []
         link = ad['ad_link']
+        descr = await get_descr_ad(ad['ad_link'])
 
         city_ = ''
         name_ = ''
@@ -107,6 +117,7 @@ async def get_result_parser(url, user_id):
                               crca=crca,
                               rgd=rgd,
                               crg=crg,
+                              descr=descr
                               )
 
         result_mass.append(per)

@@ -53,7 +53,7 @@ async def next_photo_filter(query: CallbackQuery):
 
         return
 
-    await query.answer(text=f'{num_caption-1}-е изображение из {return_prefix(len(all_photos))}')
+    await query.answer(text=f'{num_caption}-е изображение из {return_prefix(len(all_photos))}')
 
     await query.message.edit_media(
         InputMediaPhoto(
