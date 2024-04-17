@@ -49,3 +49,14 @@ def get_links(user_id):
     for item in select_:
         mass.append([item.unique_id, add_backslash_before_dots(text=item.pars_link)])
     return mass
+
+
+def return_prefix(num: int) -> str:
+    if num == 1:
+        return '1-го!'
+    elif num == 2:
+        return '2-ух!'
+    elif num == 3 or num == 4:
+        return f'{num}-ёх!'
+    else:
+        return f'{num}-и!'

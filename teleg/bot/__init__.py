@@ -1,1 +1,1 @@
-from . import core, set_handlers, commands, states
+from . import core, set_handlers, commands, states, inline

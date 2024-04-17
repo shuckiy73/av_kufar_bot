@@ -22,8 +22,12 @@ def cancel_kb():
 def get_flag_ikb(item: ParsInfo):
     return InlineKeyboardMarkup(
         inline_keyboard=[
-            # [InlineKeyboardButton(text=NEXT_PHOTO,
-            #                       callback_data=f'flag_next_photo-{item.ad_id}-{0}')],
+            [
+                InlineKeyboardButton(text='⬅️',
+                                     callback_data=f'previous-{item.ad_id}-{0}'),
+                InlineKeyboardButton(text='➡️',
+                                     callback_data=f'next_photo-{item.ad_id}-{0}')
+             ],
             [InlineKeyboardButton(text='Ссылка на объявление', url=item.link)]
         ]
     )
