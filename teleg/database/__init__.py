@@ -33,12 +33,14 @@ class BaseModel(Model):
 class Users(BaseModel):
     unique_id = TextField(null=True, unique=True, primary_key=True)
     user_id = BigIntegerField(unique=False)
-    pars_link = TextField(null=True)
+    pars_link = TextField(default='', null=True)
+    site_name = TextField(default='', null=True)
 
 
 class ParsInfo(BaseModel):
     user = ForeignKeyField(Users)
     ad_id = BigIntegerField(default=0, null=True)
+    site_name = TextField(default='', null=True)
     seller = TextField(default='', null=True)
     link_photo = TextField(default='', null=True)
     link = TextField(default='', null=True)
@@ -51,18 +53,21 @@ class ParsInfo(BaseModel):
     rgd = TextField(default='', null=True)
     crg = TextField(default='', null=True)
     descr = TextField(default='', null=True)
+    phone = TextField(default='', null=True)
 
     def __repr__(self):
         return \
-            f'''{f'{hitalic("Марка/Модель")}:  {hbold(self.car_name)}.'}\n\n''' \
-            f'''{f'{hitalic("Продавец")}:  {hbold(self.seller)}.' if self.seller else 'Имя не указано.'}\n\n''' \
+            f'''{hitalic("Сайт")}: {'Av.by' if self.site_name == 'av' else 'Kufar.by'}\n\n''' \
+            f'''{hitalic("Марка/Модель")}:  {hbold(self.car_name)}.\n\n''' \
+            f'''{hitalic("Продавец")}:  {f'{hbold(self.seller)}.' if self.seller else 'Имя не указано.'}\n\n''' \
             f"{hitalic('Дата публикации объявления')}: \n" \
             f"{hbold(self.time_publish)}.\n\n" \
-            f'''{f'{hitalic("Область/Город")}:  {hbold(self.city)}.'}\n\n''' \
-            f'''{hitalic(f"Стоимость авто:")}  {hbold(self.price_car+' USD')}.\n\n''' \
-            f'{hitalic("Другая информация:  ")}' \
-            f'{hbold(self.cre)}, {hbold(self.crca)}, {hbold(self.rgd)}, {hbold(self.crg)}.\n\n' \
-            f'{hitalic("Описание:  ")}{hbold(send_text(str(self.descr)))}'
+            f'''{f'{hitalic("Местоположение" if self.site_name == "av" else "Область/Город")}:  {hbold(self.city)}.'}\n\n''' \
+            f'''{hitalic(f"Стоимость авто:")}  {hbold(self.price_car)} USD.\n\n''' \
+            f'{hitalic("Другая информация:  ")}\n' \
+            f'{hbold(self.cre)}, {hbold(self.crca)}, {hbold(self.rgd)}, ' \
+            f'{hbold(self.crg)}{f", {hbold(self.phone)}" if self.phone else ""}.\n\n' \
+            f'{hitalic("Описание:  ")}{send_text(str(self.descr))}'
 
 
 def init():

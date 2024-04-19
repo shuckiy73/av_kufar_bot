@@ -1,7 +1,8 @@
-from aiogram.types import InlineKeyboardMarkup, CallbackQuery, InlineKeyboardButton, InputMediaPhoto
+from aiogram.types import InlineKeyboardMarkup, CallbackQuery, InlineKeyboardButton, InputMediaPhoto, InputMedia
+from random import choices
 
-from .core import router
-from .helpers import return_prefix
+from .core import router, bot_
+from .helpers import return_prefix, delete_link
 
 from teleg.database import ParsInfo
 
@@ -72,3 +73,15 @@ async def next_photo_filter(query: CallbackQuery):
             ]
         )
     )
+
+
+@router.callback_query(lambda query: query.data.startswith('delete'))
+async def next_photo_filter(query: CallbackQuery):
+    user_id = query.from_user.id
+    unique_id = query.data.split('-')[-1]
+    delete_link(user_id=user_id, unique_id=unique_id)
+    await bot_.delete_message(
+        chat_id=query.message.chat.id,
+        message_id=query.message.message_id
+    )
+    await query.answer('Ссылка удалена 💥')

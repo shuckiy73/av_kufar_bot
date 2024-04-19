@@ -13,11 +13,12 @@ def get_unique_id() -> str:
     return unique_part_1 + unique_part_2.replace('.', '') + unique_part_3
 
 
-def get_user(id_user, link):
+def get_user(id_user, link, site_name):
     user, _ = Users.get_or_create(
         user_id=id_user,
         unique_id=get_unique_id(),
-        pars_link=link
+        pars_link=link,
+        site_name=site_name
     )
     return user
 
@@ -37,17 +38,11 @@ def delete_link(user_id, unique_id):
     return True
 
 
-def add_backslash_before_dots(text):
-    first_text = re.sub(r"\.", r"\\.", text)
-    second_text = re.sub(r"-", r"\\-", first_text)
-    third_text = re.sub(r"=", r"\\=", second_text)
-    return third_text
-
 def get_links(user_id):
     select_ = Users.select().where(Users.user_id == user_id)
     mass = []
     for item in select_:
-        mass.append([item.unique_id, add_backslash_before_dots(text=item.pars_link)])
+        mass.append([item.unique_id, item.site_name, item.pars_link])
     return mass
 
 

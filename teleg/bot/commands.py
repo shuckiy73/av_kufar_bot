@@ -15,10 +15,6 @@ async def set_commands(bot: Bot = bot_):
         BotCommand(
             command="all_links",
             description="Список установленных ссылок."
-        ),
-        BotCommand(
-            command="delete",
-            description="Удалить ссылку."
         )
     ]
 

@@ -32,3 +32,11 @@ def get_flag_ikb(item: ParsInfo):
             [InlineKeyboardButton(text='Ссылка на объявление', url=item.link)]
         ]
     )
+
+
+def delete_kb(unique_id):
+    return InlineKeyboardMarkup(
+        inline_keyboard=[
+            [InlineKeyboardButton(text='Удалить ссылку💣', callback_data='delete-' + unique_id)]
+        ]
+    )
