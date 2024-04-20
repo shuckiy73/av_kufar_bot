@@ -28,7 +28,7 @@ async def add_link(message: Message, state: FSMContext):
 async def add_link(message: Message, state: FSMContext):
     if message.from_user.id == ADMIN_ID:
         user_id, url = message.text.split()
-        site_name = 'kuraf'
+        site_name = 'kufar'
         if 'cars.av.by' in url:
             site_name = 'av'
         await first_pars(url, user_id, site_name, admin=True)
