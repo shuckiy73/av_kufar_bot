@@ -71,7 +71,7 @@ async def get_result_parser_kuf(url, user_id, site_name):
             ParsInfo.site_name == site_name
         )
         if _select.exists():
-            continue
+            break
 
         time_publish = datetime.datetime.strptime(ad['list_time'][:-1], pattern)
         link_photo = []
@@ -171,7 +171,6 @@ async def get_result_parser_av(url, user_id, site_name):
 
     result_mass = []
     name, cre, crca, rgd, crg = '', '', '', '', ''
-    from pprint import pprint
     for ad in ads:
         __id = ad['id']
         _select = ParsInfo.select().where(
@@ -180,7 +179,7 @@ async def get_result_parser_av(url, user_id, site_name):
             ParsInfo.site_name == site_name
         )
         if _select.exists():
-            continue
+            break
 
         name_ = ''
         link_photo = []
