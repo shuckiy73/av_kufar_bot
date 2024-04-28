@@ -19,7 +19,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-proxy = os.getenv("PROXY")
+# proxy = os.getenv("PROXY")
 
 
 async def first_pars(url: str, user_id: int, site_name: str, admin=False) -> None:
@@ -28,7 +28,7 @@ async def first_pars(url: str, user_id: int, site_name: str, admin=False) -> Non
         headers = headers_av
 
     async with aiohttp.ClientSession(headers=headers) as session:
-        async with session.get(url, proxy=proxy) as response:
+        async with session.get(url) as response:
             soup = BeautifulSoup(await response.text(encoding='utf-8'), 'lxml')
 
     if admin:
@@ -52,7 +52,7 @@ async def first_pars(url: str, user_id: int, site_name: str, admin=False) -> Non
 
 async def get_descr_ad(url):
     async with aiohttp.ClientSession() as session:
-        async with session.get(url, proxy=proxy) as response:
+        async with session.get(url) as response:
             soup = BeautifulSoup(await response.text(encoding='utf-8'), 'lxml')
 
     return soup.select_one('div.styles_description_content__raCHR').text.replace('\n', '')
@@ -60,7 +60,7 @@ async def get_descr_ad(url):
 
 async def get_result_parser_kuf(url, user_id, site_name):
     async with aiohttp.ClientSession(headers=headers_kuf) as session:
-        async with session.get(url, proxy=proxy) as response:
+        async with session.get(url) as response:
             soup = BeautifulSoup(await response.text(encoding='utf-8'), 'lxml')
 
     parsed = soup.find('script', id='__NEXT_DATA__')
@@ -154,7 +154,7 @@ async def get_result_parser_kuf(url, user_id, site_name):
 
 async def get_phone_av(url):
     async with aiohttp.ClientSession(headers=headers_av) as session:
-        async with session.get(url, proxy=proxy) as response:
+        async with session.get(url) as response:
             soup = BeautifulSoup(await response.text(encoding='utf-8'), 'lxml')
 
     parsed = soup.find('script', id='__NEXT_DATA__')
@@ -167,7 +167,7 @@ async def get_phone_av(url):
 
 async def get_result_parser_av(url, user_id, site_name):
     async with aiohttp.ClientSession(headers=headers_av) as session:
-        async with session.get(url, proxy=proxy) as response:
+        async with session.get(url) as response:
             soup = BeautifulSoup(await response.text(encoding='utf-8'), 'lxml')
 
     parsed = soup.find('script', id='__NEXT_DATA__')
