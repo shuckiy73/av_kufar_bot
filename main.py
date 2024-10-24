@@ -1,20 +1,21 @@
-from aiogram.methods import DeleteWebhook
+[tool.poetry]
+name = "parser_kufar"
+version = "0.1.0"
+description = ""
+authors = ["shuckiy73 <121363089+shuckiy73@users.noreply.github.com>"]
+readme = "README.md"
 
-from teleg.bot.core import bot_, dp
-from teleg.database import init
-from teleg.parser.pars_data import schedule
+[tool.poetry.dependencies]
+python = "^3.12"
+aiogram = "^2.21"
+requests = "^2.25.1"
+beautifulsoup4 = "^4.9.3"
+aiohttp = "^3.8.6"
+cleo = "^2.0.0"  # Убедитесь, что версия cleo совместима
 
-import sys
-import logging
-import asyncio
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.2"
 
-
-async def main():
-    await bot_(DeleteWebhook(drop_pending_updates=True))
-    init()
-    await asyncio.gather(dp.start_polling(bot_), schedule())
-
-
-def start_dev():
-    logging.basicConfig(level=logging.INFO, stream=sys.stdout)
-    asyncio.run(main())
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

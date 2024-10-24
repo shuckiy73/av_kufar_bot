@@ -1,22 +1,18 @@
 [tool.poetry]
-name = "teleg"
+name = "parser_kufar"
 version = "0.1.0"
 description = ""
-authors = ["Egor <egorkononec64@gmail.com>"]
+authors = ["shuckiy73 <121363089+shuckiy73@users.noreply.github.com>"]
+readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.11"
-aiogram = "^3.4.1"
-requests = "^2.31.0"
-peewee = "^3.17.1"
-beautifulsoup4 = "^4.12.3"
-lxml = "^4.2.5"
-python-dotenv = "^1.0.1"
+python = "^3.12"
+aiogram = "^2.21"
+requests = "^2.25.1"
+beautifulsoup4 = "^4.9.3"
 
-
-[tool.poetry.scripts]
-dev = "main:start_dev"
-
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.2"
 
 [build-system]
 requires = ["poetry-core"]
